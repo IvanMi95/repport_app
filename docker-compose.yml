@@ -1,0 +1,29 @@
+version: "3"
+services:
+  node-express-docker:
+    environment:
+      - NODE_ENV=development
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./:/usr/app
+    container_name: node-express-docker
+    expose:
+      - "3000"
+    ports:
+      - "4000:4000"
+    command: npm run dev
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: yourdbname
+      POSTGRES_USER: youruser
+      POSTGRES_PASSWORD: yourpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
