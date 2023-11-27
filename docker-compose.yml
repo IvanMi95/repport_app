@@ -9,11 +9,13 @@ services:
     volumes:
       - ./:/usr/app
     container_name: node-express-docker
+    restart: always
     expose:
       - "3000"
     ports:
       - "4000:4000"
     command: npm run dev
+
   postgres:
     image: postgres
     environment:
@@ -22,8 +24,15 @@ services:
       POSTGRES_PASSWORD: yourpassword
     ports:
       - "5432:5432"
+    restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
 
 volumes:
   postgres_data:
